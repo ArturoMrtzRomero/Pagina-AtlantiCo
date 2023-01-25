@@ -1,0 +1,20 @@
+//PHP code to sent contact form to both client and owner
+if(isset($_POST['submit'])){//Check if user enter data
+    $mailto = "arturomrtzrom@gmail.com"; //Emaeil atlantico
+    $from = $_POST['email'];//Sender email address
+    $name = $_POST['name'];// User name
+    $subject = $_POST['subject'];
+    $subject2 = "Your message submited successfully";//This is for client
+    $message = "Client name: ". $name. ", wrote the following message". "\n\n". $_POST['message'];
+    $message2 = "Dear ". $name. "\n\n". "Thank you for contacting us";
+    $headers = "From: ". $from; //User entered email address
+    $headers2 = "From: ". $mailto; //This will receive to client
+    $result = mail($mailto, $subject, $message, $headers); //Send email to website owner
+    $result2 = mail($from, $subject2, $message2, $headers2);//Send email to user as well
+    
+    if($result){//If email is submited successfully
+        echo '<script type="text/javascript">Alert("Message was sent successfully")</script>';
+    }else{
+        echo '<script type="text/javascript">Alert("Submission failed")</script>';
+    }
+}
